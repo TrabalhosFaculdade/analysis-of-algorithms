@@ -6,6 +6,6 @@
 #include <stdbool.h>
 
 char *nextline(FILE *file, int maxNumChars);
-bool eof(FILE *file);
+float nextfloat(FILE *file);
 
 #endif

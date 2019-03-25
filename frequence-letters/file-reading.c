@@ -34,7 +34,10 @@ char *nextline(FILE *file, int maxNumChars)
     return line;
 }
 
-bool eof(FILE *file)
+float nextfloat(FILE *file)
 {
-    return feof(file);
+    float value;
+    fscanf(file,"%f", &value);
+
+    return value;
 }

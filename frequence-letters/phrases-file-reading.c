@@ -11,12 +11,12 @@
 void readFileInto(Array *a, char filename[])
 {
     initArray(a, 5); //5: initial size
-    FILE *file;
 
+    FILE *file;
     file = fopen(filename, READING_MODE);
     if (file == NULL)
     {
-        perror("Error while opening file");
+        perror("Error while opening phrases file");
         return;
     }
 
@@ -27,4 +27,46 @@ void readFileInto(Array *a, char filename[])
     }
 
     fclose(file);
+}
+
+void readFrequencesInto(FrequenceLanguage *frequence,
+                        char filename[],
+                        char alphabetfilename[],
+                        char languagename[])
+{
+    FILE *alphabetfile;
+    alphabetfile = fopen(alphabetfilename, READING_MODE);
+    if (alphabetfilename == NULL)
+    {
+        perror("Error while opening alphabet file");
+        return;
+    }
+
+    if (feof(alphabetfile))
+    {
+        perror("Alphabet is not defined in informed file");
+        return;
+    }
+
+    FILE *frequencelanguagefile;
+    frequencelanguagefile = fopen(filename, READING_MODE);
+    if (frequencelanguagefile == NULL)
+    {
+        perror("Error while opening frequence file");
+        return;
+    }
+
+    char *alphabetchars = nextline(alphabetfile, LETTERS_ALPHABET);
+    unsigned int i = 0;
+
+    while (!feof(frequencelanguagefile))
+    {
+        FrequenceLetter letter;
+        letter.letter = alphabetchars[i];
+        letter.percentageOccurrence = nextfloat(frequencelanguagefile);
+
+        frequence->lettersInLanguage[i++] = letter;
+    }
+
+    frequence->languageName = languagename;
 }
