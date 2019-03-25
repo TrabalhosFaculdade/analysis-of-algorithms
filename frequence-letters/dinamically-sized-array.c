@@ -42,8 +42,6 @@ void insertInto(Array *a, char *element)
 
     strcpy(a->array[a->used], element);
     a->used++;
-
-    printArray(a);
 }
 
 void freeArray(Array *a)

@@ -16,9 +16,10 @@ char *nextline(FILE *file, int maxNumChars)
     {
         if (reading)
         {
-            if (currentChar == maxNumChars)
+            if (currentChar == (maxNumChars - 1))
                 //reached the end of wanted characters
                 //set reading to false to keep on reading until eof
+                //-1 because we will fill the last value with \0
                 reading = false;
 
             if (fileChar == '\n')
@@ -31,13 +32,14 @@ char *nextline(FILE *file, int maxNumChars)
         }
     }
 
+    line[++currentChar] = '\0'; //to indicate the end of the string
     return line;
 }
 
 float nextfloat(FILE *file)
 {
     float value;
-    fscanf(file,"%f", &value);
+    fscanf(file, "%f", &value);
 
     return value;
 }

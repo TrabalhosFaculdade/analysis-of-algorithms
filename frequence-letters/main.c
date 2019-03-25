@@ -6,16 +6,28 @@
 
 int main()
 {
-    Array a;
-    readFileInto(&a, "phrases.txt");
+    Array phrases;
+    readFileInto(&phrases, "phrases.txt");
 
-    FrequenceLanguage l;
-    readFrequencesInto(&l,"frequences/english.txt", "frequences/letters.txt", "English");
-    
-    //reads all files on /frequences and places in a struct FrequenceLanguage
+    Frequence englishfrequence;
+    Frequence portuguesefrequence;
+    Frequence germanfrequence;
 
+    readFrequencesInto(&englishfrequence,
+                       "frequences/english.txt",
+                       "frequences/letters.txt", "English");
 
-    //just testing
-    printArray(&a);
+    readFrequencesInto(&portuguesefrequence,
+                       "frequences/portuguese.txt",
+                       "frequences/letters.txt", "Portuguese");
+
+    readFrequencesInto(&germanfrequence,
+                       "frequences/german.txt",
+                       "frequences/letters.txt", "German");
+
+    //after reading all frequences from files, 
+    //get the frequence out of a phrases in a array
+    //TODO solve problem: iterating over a phrase and over the array of phrases.
+
     return 0;
 }

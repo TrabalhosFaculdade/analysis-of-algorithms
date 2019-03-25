@@ -29,7 +29,7 @@ void readFileInto(Array *a, char filename[])
     fclose(file);
 }
 
-void readFrequencesInto(FrequenceLanguage *frequence,
+void readFrequencesInto(Frequence *frequence,
                         char filename[],
                         char alphabetfilename[],
                         char languagename[])

@@ -15,10 +15,10 @@ typedef struct
 {
     FrequenceLetter lettersInLanguage[LETTERS_ALPHABET];
     char *languageName;
-} FrequenceLanguage;
+} Frequence;
 
 void readFileInto(Array *a, char filename[]);
-void readFrequencesInto(FrequenceLanguage *fequence,
+void readFrequencesInto(Frequence *fequence,
                         char filename[],
                         char alphabetfilename[],
                         char languagename[]);
