@@ -80,9 +80,7 @@ int main()
                        "frequences/german.txt",
                        "frequences/letters.txt", "German");
 
-    //after reading all frequences from files,
-    //get the frequence out of a phrases in a array
-    //TODO solve problem: iterating over a phrase and over the array of phrases.
+    printf("\n\nNote: the lower the number, the better.\n\n");
 
     unsigned int i;
     for (i = 0; i < phrases.used; i++)
@@ -93,8 +91,6 @@ int main()
         char *line = phrases.array[i];
         unsigned int j;
         unsigned total = 0;
-
-        printf("Line: %s \n", line);
 
         rawFrequences = (RawFrequenceLetter *) malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
         readAlphabetInto(rawFrequences, "frequences/letters.txt");
@@ -113,7 +109,8 @@ int main()
         germanDiff = difference(&germanfrequence,&phraseFrequence);
         portugueseDiff = difference(&portuguesefrequence,&phraseFrequence);
 
-        printf("Results for phrase %d: %.1f, %.1f, %.1f \n \n \n", i, englishDiff, germanDiff, portugueseDiff);
+        printf("Phrase: %s \n", line);
+        printf("English: %.1f, German: %.1f, Portuguese: %.1f \n \n \n", englishDiff, germanDiff, portugueseDiff);
     }
 
     return 0;
