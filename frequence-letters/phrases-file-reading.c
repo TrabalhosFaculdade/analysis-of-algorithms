@@ -29,6 +29,28 @@ void readFileInto(Array *a, char filename[])
     fclose(file);
 }
 
+void readAlphabetInto(RawFrequenceLetter *frequences, char alphabetfilename[])
+{
+    FILE *alphabetfile;
+    alphabetfile = fopen(alphabetfilename, READING_MODE);
+    if (alphabetfile == NULL || feof(alphabetfile))
+    {
+        perror("Error while opening alphabet file");
+        return;
+    }
+
+    int i;
+    char *alphabetchars;
+
+    alphabetchars = nextline(alphabetfile, LETTERS_ALPHABET);
+    frequences = malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
+    for (i = 0; i < LETTERS_ALPHABET; i++)
+    {
+        frequences->letter = alphabetchars[i];
+        frequences->frequence = 0;
+    }
+}
+
 void readFrequencesInto(Frequence *frequence,
                         char filename[],
                         char alphabetfilename[],

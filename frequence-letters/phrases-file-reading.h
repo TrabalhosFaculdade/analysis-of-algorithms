@@ -13,11 +13,18 @@ typedef struct
 
 typedef struct
 {
+    char letter;
+    unsigned int frequence;
+} RawFrequenceLetter;
+
+typedef struct
+{
     FrequenceLetter lettersInLanguage[LETTERS_ALPHABET];
     char *languageName;
 } Frequence;
 
 void readFileInto(Array *a, char filename[]);
+void readAlphabetInto(RawFrequenceLetter *frequences, char alphabetfilename[]);
 void readFrequencesInto(Frequence *fequence,
                         char filename[],
                         char alphabetfilename[],
