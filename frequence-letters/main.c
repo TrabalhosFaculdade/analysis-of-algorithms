@@ -94,6 +94,8 @@ int main()
         unsigned int j;
         unsigned total = 0;
 
+        printf("Line: %s \n", line);
+
         rawFrequences = (RawFrequenceLetter *) malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
         readAlphabetInto(rawFrequences, "frequences/letters.txt");
 
@@ -111,7 +113,7 @@ int main()
         germanDiff = difference(&germanfrequence,&phraseFrequence);
         portugueseDiff = difference(&portuguesefrequence,&phraseFrequence);
 
-        printf("Results for phrase %d: %.1f, %.1f, %.1f\n", i, englishDiff, germanDiff, portugueseDiff);
+        printf("Results for phrase %d: %.1f, %.1f, %.1f \n \n \n", i, englishDiff, germanDiff, portugueseDiff);
     }
 
     return 0;

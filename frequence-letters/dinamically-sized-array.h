@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#define MAX_NUMBER_CHARACTERS 1000
+#define MAX_NUMBER_CHARACTERS 5000
 
 /**
  * This is an struct that stores a pointer of pointer
