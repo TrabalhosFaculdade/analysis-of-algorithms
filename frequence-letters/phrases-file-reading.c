@@ -43,11 +43,10 @@ void readAlphabetInto(RawFrequenceLetter *frequences, char alphabetfilename[])
     char *alphabetchars;
 
     alphabetchars = nextline(alphabetfile, LETTERS_ALPHABET);
-    frequences = malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
     for (i = 0; i < LETTERS_ALPHABET; i++)
     {
-        frequences->letter = alphabetchars[i];
-        frequences->frequence = 0;
+        frequences[i].letter = alphabetchars[i];
+        frequences[i].frequence = 0;
     }
 }
 

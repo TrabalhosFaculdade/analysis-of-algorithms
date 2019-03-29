@@ -8,6 +8,7 @@ float difference(Frequence *languageFrequence, Frequence *phraseFrequence)
 {
     unsigned int i;
     float totalDifference = 0;
+
     for (i = 0; i < LETTERS_ALPHABET; i++)
     {
         float charFrequenceLanguage = languageFrequence->lettersInLanguage[i].percentageOccurrence;
@@ -50,7 +51,6 @@ void incrementInto(RawFrequenceLetter *frequences, char wanted)
     unsigned int i;
     for (i = 0; i < LETTERS_ALPHABET; i++)
     {
-        //found
         if (frequences[i].letter == wanted)
         {
             frequences[i].frequence++;
@@ -87,23 +87,24 @@ int main()
     unsigned int i;
     for (i = 0; i < phrases.used; i++)
     {
-        RawFrequenceLetter rawFrequences;
+        RawFrequenceLetter *rawFrequences;
         Frequence phraseFrequence;
 
         char *line = phrases.array[i];
         unsigned int j;
         unsigned total = 0;
 
-        readAlphabetInto(&rawFrequences, "frequences/letters.txt");
+        rawFrequences = (RawFrequenceLetter *) malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
+        readAlphabetInto(rawFrequences, "frequences/letters.txt");
 
         for (j = 0; j < strlen(line); j++)
         {
             char currentchar = line[j];
-            incrementInto(&rawFrequences, currentchar);
+            incrementInto(rawFrequences, currentchar);
             total++;
         }
 
-        phraseFrequence = getFrequenceFrom(&rawFrequences, total, "Guessing");
+        phraseFrequence = getFrequenceFrom(rawFrequences, total, "Guessing");
 
         float englishDiff, germanDiff, portugueseDiff;
         englishDiff = difference(&englishfrequence,&phraseFrequence);
