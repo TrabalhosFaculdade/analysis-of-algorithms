@@ -4,6 +4,13 @@
 #include "dinamically-sized-array.h"
 #include "phrases-file-reading.h"
 
+/**
+ * The raw difference between two Frequence structs.
+ * Iterating over each letter of the alphabet in the 
+ * speciifed structs, and getting the absolute difference 
+ * between those two. Adding all of this up, and returning 
+ * the result. 
+*/
 float difference(Frequence *languageFrequence, Frequence *phraseFrequence)
 {
     unsigned int i;
@@ -20,6 +27,16 @@ float difference(Frequence *languageFrequence, Frequence *phraseFrequence)
     return totalDifference;
 }
 
+/**
+ * Convert RawFrequenceLetters into a Frequence 
+ * struct. This is done by getting the percentage 
+ * equivalent of the total appereance of a specified 
+ * character, having the total number of characters as
+ * the 100%. 
+ * 
+ * A new Frequence struct will be instantied and 
+ * returned as a result.
+*/
 Frequence getFrequenceFrom(RawFrequenceLetter *rawFrequences,
                            int totalchars,
                            char languagename[])
@@ -27,7 +44,6 @@ Frequence getFrequenceFrom(RawFrequenceLetter *rawFrequences,
     unsigned int i;
     Frequence *frequence;
 
-    //x = (100 * rawFrequenceValue)/total
     frequence = malloc(sizeof(Frequence));
     frequence->languageName = languagename;
 
@@ -36,6 +52,9 @@ Frequence getFrequenceFrom(RawFrequenceLetter *rawFrequences,
         FrequenceLetter frequenceletter;
 
         //calculating values and placing it into propert structs
+        //rawFrequenceValue / total = x /100
+        //x = (100 * rawFrequenceValue)/total
+
         float result = (100.0 * rawFrequences[i].frequence) / (float)totalchars;
         frequenceletter.letter = rawFrequences[i].letter;
         frequenceletter.percentageOccurrence = result;
@@ -46,6 +65,16 @@ Frequence getFrequenceFrom(RawFrequenceLetter *rawFrequences,
     return *frequence;
 }
 
+/**
+ * The goal of this function in to increment the 
+ * total ocurrence of a specified (wanted) character
+ * into the RawFrequenceLetter struct passed as
+ * parameter.
+ * 
+ * Nothing will be done if character could not be found,
+ * which will include special characters not defined into
+ * our "standart" 26 letter alphabet.
+*/
 void incrementInto(RawFrequenceLetter *frequences, char wanted)
 {
     unsigned int i;
@@ -59,6 +88,24 @@ void incrementInto(RawFrequenceLetter *frequences, char wanted)
     }
 }
 
+/**
+ * Application entry point. Flow of execution:
+ * 
+ * 1. Read phrases whose idioms will be guessed by 
+ * the program and place them into a dinamically 
+ * sized array.
+ * 
+ * 2. Read the frequence of ocorrunce of each letter
+ * of the defined languages.
+ * 
+ * 3. Translate the phrases to frequence into structs 
+ * as well
+ * 
+ * 4. Compare the difference between the frequence 
+ * structs of each language and the one retrieved by the
+ * read phrase, and print results. 
+ * 
+*/
 int main()
 {
     Array phrases;
@@ -87,14 +134,21 @@ int main()
     {
         RawFrequenceLetter *rawFrequences;
         Frequence phraseFrequence;
-
-        char *line = phrases.array[i];
+        size_t rawfrequencelettersize;
+        
+        char *line;
         unsigned int j;
-        unsigned total = 0;
+        unsigned total;
 
-        rawFrequences = (RawFrequenceLetter *) malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
+        //getting the raw frequence of appereance of each letter
+        //then translate into porcentage numbers, with witch to
+        //calculate the things we want
+        rawfrequencelettersize = sizeof(RawFrequenceLetter) * LETTERS_ALPHABET;
+        rawFrequences = (RawFrequenceLetter *) malloc(rawfrequencelettersize);
         readAlphabetInto(rawFrequences, "resources/letters.txt");
 
+        total = 0;
+        line = phrases.array[i];
         for (j = 0; j < strlen(line); j++)
         {
             char currentchar = line[j];
@@ -104,13 +158,16 @@ int main()
 
         phraseFrequence = getFrequenceFrom(rawFrequences, total, "Guessing");
 
+        //printing all results
         float englishDiff, germanDiff, portugueseDiff;
-        englishDiff = difference(&englishfrequence,&phraseFrequence);
-        germanDiff = difference(&germanfrequence,&phraseFrequence);
-        portugueseDiff = difference(&portuguesefrequence,&phraseFrequence);
+
+        englishDiff = difference(&englishfrequence, &phraseFrequence);
+        germanDiff = difference(&germanfrequence, &phraseFrequence);
+        portugueseDiff = difference(&portuguesefrequence, &phraseFrequence);
 
         printf("Phrase: %s \n", line);
-        printf("English: %.1f, German: %.1f, Portuguese: %.1f \n \n \n", englishDiff, germanDiff, portugueseDiff);
+        printf("English: %.1f, German: %.1f, Portuguese: %.1f \n \n \n", 
+                englishDiff, germanDiff, portugueseDiff);
     }
 
     return 0;

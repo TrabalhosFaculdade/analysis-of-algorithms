@@ -8,6 +8,12 @@
 
 #define READING_MODE "r"
 
+/**
+ * Initializes a dinamically growing Array, with the initial 
+ * value of 5. The result is the lines, separated by "\0", gotten 
+ * from the informed parameters.
+ * 
+*/
 void readFileInto(Array *a, char filename[])
 {
     initArray(a, 5); //5: initial size
@@ -22,6 +28,7 @@ void readFileInto(Array *a, char filename[])
 
     while (!feof(file))
     {
+        //getting untill it reachs the end of the characters
         char *line = nextline(file, MAX_NUMBER_CHARACTERS);
         insertInto(a, line);
     }
@@ -29,10 +36,23 @@ void readFileInto(Array *a, char filename[])
     fclose(file);
 }
 
+/**
+ * Receives as parameteres the frequence into which the initialized and clean 
+ * will be placed, and the alphabet file path, which defines the characters of
+ * the alphabet.
+ * 
+ * Uniqueness of the letters not checked, so watch out for what you write there.
+ * The clean result that i mentioned earlier is simply the RawFrequenceLetter 
+ * intialized with the corresponding character ocupping each positon, with the 
+ * total values of appereaces as 0.
+ * 
+*/
 void readAlphabetInto(RawFrequenceLetter *frequences, char alphabetfilename[])
 {
     FILE *alphabetfile;
     alphabetfile = fopen(alphabetfilename, READING_MODE);
+
+    //file not found, or the alphabet file is at its end, problably empty.
     if (alphabetfile == NULL || feof(alphabetfile))
     {
         perror("Error while opening alphabet file");
@@ -50,6 +70,16 @@ void readAlphabetInto(RawFrequenceLetter *frequences, char alphabetfilename[])
     }
 }
 
+/**
+ * Initializes the frequence struct from frequence file,
+ * using the alphabet as the basics of structring 
+ * 
+ * Frequence 
+ * -> language name;
+ * -> List of Frequence letter:
+ *      -> letter (value)
+ *      -> percentageOccurrence
+*/
 void readFrequencesInto(Frequence *frequence,
                         char filename[],
                         char alphabetfilename[],
@@ -57,15 +87,9 @@ void readFrequencesInto(Frequence *frequence,
 {
     FILE *alphabetfile;
     alphabetfile = fopen(alphabetfilename, READING_MODE);
-    if (alphabetfilename == NULL)
+    if (alphabetfilename == NULL || feof(alphabetfile))
     {
         perror("Error while opening alphabet file");
-        return;
-    }
-
-    if (feof(alphabetfile))
-    {
-        perror("Alphabet is not defined in informed file");
         return;
     }
 
