@@ -62,23 +62,23 @@ void incrementInto(RawFrequenceLetter *frequences, char wanted)
 int main()
 {
     Array phrases;
-    readFileInto(&phrases, "phrases.txt");
+    readFileInto(&phrases, "resources/phrases.txt");
 
     Frequence englishfrequence;
     Frequence portuguesefrequence;
     Frequence germanfrequence;
 
     readFrequencesInto(&englishfrequence,
-                       "frequences/english.txt",
-                       "frequences/letters.txt", "English");
+                       "resources/english.txt",
+                       "resources/letters.txt", "English");
 
     readFrequencesInto(&portuguesefrequence,
-                       "frequences/portuguese.txt",
-                       "frequences/letters.txt", "Portuguese");
+                       "resources/portuguese.txt",
+                       "resources/letters.txt", "Portuguese");
 
     readFrequencesInto(&germanfrequence,
-                       "frequences/german.txt",
-                       "frequences/letters.txt", "German");
+                       "resources/german.txt",
+                       "resources/letters.txt", "German");
 
     printf("\n\nNote: the lower the number, the better.\n\n");
 
@@ -93,7 +93,7 @@ int main()
         unsigned total = 0;
 
         rawFrequences = (RawFrequenceLetter *) malloc(sizeof(RawFrequenceLetter) * LETTERS_ALPHABET);
-        readAlphabetInto(rawFrequences, "frequences/letters.txt");
+        readAlphabetInto(rawFrequences, "resources/letters.txt");
 
         for (j = 0; j < strlen(line); j++)
         {
