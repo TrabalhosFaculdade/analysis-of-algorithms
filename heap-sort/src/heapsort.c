@@ -1,5 +1,14 @@
 #include "heapsort.h"
 
+/**
+ * Builds a heap of max, and then starts sorting process.
+ * Replaces the first value, which is the biggest on heap, 
+ * and place it on the last position (this value is already sorted)
+ * 
+ * Heap size decreases by one, and then we heapify "afunda" the 
+ * first value.
+ * 
+*/
 void sort(heap_t *heap)
 {
     build_max_heap(heap);
@@ -9,6 +18,7 @@ void sort(heap_t *heap)
         int temp = *(heap->values);
         *(heap->values) = *(heap->values + i);
         *(heap->values + i) = temp;
+
         heap->heapsize = i;
         heapify(heap, 0);
     }
@@ -26,10 +36,10 @@ void heapify(heap_t *heap, int index)
     int left_index = 2 * index;
     int right_index = 2 * index + 1;
 
-    if (left_index < heap->heapsize && *(heap->values + left_index) > * (heap->values + largest))
+    if (left_index < heap->heapsize && *(heap->values + left_index) > *(heap->values + largest))
         largest = left_index;
 
-    if (right_index < heap->heapsize && *(heap->values + right_index) > * (heap->values + largest))
+    if (right_index < heap->heapsize && *(heap->values + right_index) > *(heap->values + largest))
         largest = right_index;
 
     if (largest != index)
