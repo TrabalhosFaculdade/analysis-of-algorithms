@@ -3,7 +3,7 @@
 
 #define UNDEFINED_RESULT -1
 
-int dinamic (int n, int* memo);
-int naive (int n);
+int dinamic (int n, int* memo, int* count);
+int naive (int n, int* count);
 
 #endif

@@ -4,7 +4,7 @@
 #include "fibonacci.h"
 
 #define DEBUG
-#define VALUE 45
+#define VALUE 20
 
 int *initialize(int n)
 {
@@ -39,11 +39,14 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    int dinamicResult = dinamic(VALUE, memo);
-    printf("Calculated dinamic result: %d\n", dinamicResult);
+    int dinamicCounter, naiveCounter;
+    dinamicCounter = naiveCounter = 0;
 
-    int naiveResult = naive(VALUE);
-    printf("Calculated value: %d\n", naiveResult);
+    int dinamicResult = dinamic(VALUE, memo, &dinamicCounter);
+    printf("Calculated dinamic result: %d, number of calls: %d\n", dinamicResult, dinamicCounter);
+
+    int naiveResult = naive(VALUE, &naiveCounter);
+    printf("Calculated value: %d, number of calls: %d\n", naiveResult, naiveCounter);
 
     free(memo);
 }
