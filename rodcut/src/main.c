@@ -8,21 +8,19 @@ int *initialize(int n)
     if (n < 0)
     {
         perror("Trying to initialize an array with a negative amount of values");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     int *values = malloc(sizeof(int) * n);
 
     if (values == NULL)
     {
-        perror("error while trying to initialize array for the memoization values");
-        return NULL;
+        perror("Error while trying to initialize array for the memoization values");
+        exit(EXIT_FAILURE);
     }
 
     for (int i = 0; i < n; i++)
-    {
         values[i] = UNDEFINED_RESULT;
-    }
 
     return values;
 }
