@@ -3,13 +3,6 @@
 #include "selection.h"
 
 /**
- * implements the behaviour of a grouwing list. 
- * Incrementing size using the value of the pointer
- * 
-*/
-void add(activity_t *group, activity_t newvalue, int *size);
-
-/**
  * Assuming that activities passed as parameters 
  * are already sorted by ending time. Consider implementing 
  * some sorting algorithm
