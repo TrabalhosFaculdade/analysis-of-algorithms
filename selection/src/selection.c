@@ -39,8 +39,3 @@ selection_t select_activities(activity_t *group, int n)
 
     return selection;
 }
-
-void add(activity_t *group, activity_t newvalue, int *size)
-{
-    group[(*size)++] = newvalue;
-}
